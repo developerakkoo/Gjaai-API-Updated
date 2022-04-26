@@ -24,7 +24,7 @@ const upload = multer({ storage: diskStorage });
 Router.post("/institute", upload.array("file"), institute.postInstitute);
 
 Router.get(
-  "/get/institute/:udise/:mobile",
+  "/get/institute/:udise",
   institute.getInstituteByUdiseAndMobile
 );
 Router.get("/institute", institute.getInstitute);

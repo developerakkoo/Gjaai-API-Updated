@@ -119,7 +119,7 @@ exports.getInstituteByUdiseAndMobile = async(req, res, next) => {
     try {
     
 
-        const institute = await Institute.find({ UDiseNo:req.params.udise, ContactNo:req.params.mobile }).populate("inputs");
+        const institute = await Institute.find({ UDiseNo:req.params.udise});
 
         if(institute){
             res.status(200).json({

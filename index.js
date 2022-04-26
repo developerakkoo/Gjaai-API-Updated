@@ -53,7 +53,7 @@ dotenv.config({
   path: "./config.env",
 });
 
-if (process.env.NODE_ENV === "development") {
+if(process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
@@ -76,6 +76,7 @@ if (process.env.NODE_ENV === "development") {
 app.use("/image", express.static(path.join(__dirname, "image")));
 
 app.use('/folders', express.static('image'), serveindex('image', {icons: true}));
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -166,7 +167,9 @@ app.post('/excel/student',upload.single('file'), (req, res, next) => {
       K: "AdharNo",
       L: "MobileNo",
       M: "StudentAddress",
-      N: "StudentPhoto" 
+      N: "StudentPhoto" ,
+      O: "Status",
+      P:"InstituteId"
     }
 });
   
