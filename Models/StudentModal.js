@@ -56,10 +56,29 @@ const StudentSchema = new Schema({
     StudentAddress:{
         type: String
     },
+    StudentPhoto:[{
+        type: Object
+    }],
 
-    StudentPhoto:{
-        type: String
+    isIdUploaded:{
+        type: Boolean,
+        default: false
     }
+    // StudentPhoto:[{
+    //     image:{
+    //         type: String
+    //     },
+    //     index: {
+    //         type: String
+    //     },
+    //     key:{
+    //         type: String
+    //     },
+    //     position: {
+    //         type: Object
+    //     }
+
+    // }]
 
 }, {
     timestamps: true,

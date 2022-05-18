@@ -10,7 +10,6 @@ exports.createStudent = async(req, res, next) => {
         if(student){
             res.status(200).json({ student, status: true})
         }
-        socket.getIO().emit("student", {student: student})
 
     }catch(err){
         res.status(404).json({message: error.message, status: false});
@@ -76,7 +75,10 @@ exports.updateStudentPhoto = async(req, res, next) => {
               message: 'Please provide a Image'
             })
           }
-          console.log(req.file);
+        //   console.log(req.file);
+         
+
+        //   console.log(pos);
 
           let photo = req.protocol + '://'+ req.hostname + ":" + "8081" + "/" +  req.file.path
 

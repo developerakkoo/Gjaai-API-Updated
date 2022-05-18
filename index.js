@@ -1,4 +1,6 @@
 const express = require("express");
+const https = require("https");
+const fs = require("fs");
 const dotenv = require("dotenv");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
@@ -7,7 +9,7 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
 const excelToJson = require('convert-excel-to-json');
-const fs = require("fs-extra");
+const fsextra = require("fs-extra");
 const serveindex = require('serve-index');
 const Student = require("./Models/StudentModal");
 
@@ -29,7 +31,7 @@ const diskStorage = multer.diskStorage({
     let date = new Date().toISOString().slice(0, 10);
     let name = "Printing";
     let path = `image/${date}/${name}/`;
-    fs.mkdirsSync(path);
+    fsextra.mkdirsSync(path);
     cb(null, path);
   },
 
@@ -41,6 +43,7 @@ const upload = multer({ storage: diskStorage});
 
 // const MONGODB_URI = "mongodb://localhost:27017/GJaai";
 const MONGODB_URI = "mongodb+srv://farmsell:farmsell@cluster0.mh36s.mongodb.net/GJaai?retryWrites=true&w=majority";
+
 
 const app = express();
 const port = 8080;
@@ -135,7 +138,7 @@ app.post('/img', upload.single('file'), (req, res, next) => {
     console.log(photo);
 
     res.status(200).json({
-      photo: req.hostname +":"+"8081"+"/" + photo
+      photo: req.protocol+"://"+ req.hostname +":"+"8081"+"/" + photo
     })
 
 })
@@ -215,7 +218,10 @@ app.all("*", (req, res, next) => {
 });
 
 
-
+const sslserver = https.createServer({
+  key: fs.readFileSync(path.join(__dirname, "cert", "key.pem")),
+  cert: fs.readFileSync(path.join(__dirname, "cert", "cert.pem"))
+})
 
 mongoose
   .connect(MONGODB_URI, {

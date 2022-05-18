@@ -119,13 +119,14 @@ exports.getInstituteByUdiseAndMobile = async(req, res, next) => {
     try {
     
 
-        const institute = await Institute.find({ UDiseNo:req.params.udise});
+        const institute = await Institute.find({ UDiseNo:req.params.udise, ContactNo: req.params.mobile});
 
         if(institute){
             res.status(200).json({
                 status: true,
                 message: "Found by udise and mobile no",
                 ins: institute,
+                length: institute.length
             })
         }
     } catch (error) {
