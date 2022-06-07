@@ -1,3 +1,4 @@
+const { json } = require('body-parser');
 const Institute = require('../Models/instituteModal');
 
 
@@ -45,6 +46,7 @@ exports.postInstitute = async (req, res, next) => {
     const CardQuantity = req.body.CardQuantity;
     const FinalRate = req.body.FinalRate;
     const PaymentMode = req.body.PaymentMode;
+    const fields = req.body.fields;
 
 
     //const photo = req.file.path.replace(/\\/g, "/");
@@ -77,10 +79,12 @@ exports.postInstitute = async (req, res, next) => {
                 CardQuantity:CardQuantity,
                 FinalRate:FinalRate,
                 PaymentMode:PaymentMode,
-                templatePhoto:  photo
+                templatePhoto:  photo,
+               
             })
 
             institute.save().then((result) =>{
+                
                 res.status(200).json({message: "Institute Registered Successfully", result, id: result._id});
             }).catch ((error) => {
                 res.status(404).json({ error: error, message: 'Something went wrong!'})

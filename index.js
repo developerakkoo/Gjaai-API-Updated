@@ -23,7 +23,7 @@ const inputRoute = require("./Routes/inputRoute");
 const fontRoute = require("./Routes/fontRoute");
 const dataRoute = require("./Routes/dataRoute");
 const imageRoute = require("./Routes/ImageRoute");
-
+const fieldRoute = require("./Routes/fieldsRoute");
 
 const diskStorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -98,6 +98,7 @@ app.use(inputRoute);
 app.use(fontRoute);
 app.use(dataRoute);
 app.use(imageRoute);
+app.use(fieldRoute);
 
 
 // app.post('/remove-image-bg', upload.single('bgremover'), (req, res, next) =>{
@@ -157,22 +158,7 @@ app.post('/excel/student',upload.single('file'), (req, res, next) => {
   const result = excelToJson({
     sourceFile: req.file.path,
     columnToKey :{
-      A: "SrNo",
-      B: "LoginID",
-      C: "Password",
-      D: "GRNo",
-      E: "Class",
-      F: "Division",
-      G: "StudentID",
-      H: "StudentName",
-      I: "MotherName",
-      J: "BirthDate",
-      K: "AdharNo",
-      L: "MobileNo",
-      M: "StudentAddress",
-      N: "StudentPhoto" ,
-      O: "Status",
-      P:"InstituteId"
+      '*': '{{columnHeader}}'
     }
 });
   

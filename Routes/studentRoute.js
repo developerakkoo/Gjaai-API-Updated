@@ -25,7 +25,7 @@ const diskStorage = multer.diskStorage({
 router.post('/students', StudentController.createStudent);
 router.get('/students', StudentController.getAllStudent);
 router.get('/students/:id', StudentController.getStudentById);
-router.get('/students/:udise/:password/:isIdUploaded', StudentController.getStudentByTeacher);
+router.get('/students/:udise/:password', StudentController.getStudentByTeacher);
 
 router.put('/students/:id', StudentController.updateStudent);
 router.put('/student/image/:id',upload.single('pic'), StudentController.updateStudentPhoto);

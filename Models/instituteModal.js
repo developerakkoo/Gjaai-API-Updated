@@ -56,8 +56,6 @@ const instituteSchema = new Schema({
         type: String
     },
 
-   
-
     CardQuantity:{
         type: Number
     },
@@ -78,6 +76,13 @@ const instituteSchema = new Schema({
         {
             type: Schema.Types.ObjectId,
             ref: "Input"
+        }
+    ],
+
+    fields:[
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Fields"
         }
     ]
     
