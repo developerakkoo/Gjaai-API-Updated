@@ -4,10 +4,10 @@ const Schema = mongoose.Schema;
 
 const StudentSchema = new Schema({
 
-    LoginID:{
+    UDiseNo:{
         type: String
     },
-    Password:{
+    ContactNo:{
         type: String
     },
     StudentPhoto:[{

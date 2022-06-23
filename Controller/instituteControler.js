@@ -185,7 +185,18 @@ exports.updateInstitute = async(req, res, next) => {
 exports.deleteInstitute = async(req, res, next) => {
     try {
         const id = req.params.id;
-        
+        const institute = await Institute.findOneAndDelete({
+            _id: id
+        },{},(err, doc) =>{
+            if(err){
+        res.status(404).json({ error: err, message: err.message});        
+
+            }
+
+            res.status(200).json({
+                doc
+            })
+        })
     } catch (error) {
         res.status(404).json({ error: error, message: error.message});        
     }

@@ -30,4 +30,5 @@ Router.get(
 Router.get("/institute", institute.getInstitute);
 Router.get("/institute/:id", institute.getInstituteById);
 
+Router.delete("/institute/:id", institute.deleteInstitute);
 module.exports = Router;

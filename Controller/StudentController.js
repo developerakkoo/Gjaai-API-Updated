@@ -37,7 +37,7 @@ exports.getStudentByTeacher = async(req, res, next) => {
        
 
 
-        const s = await Student.find({LoginID : req.params.udise, Password: req.params.password});
+        const s = await Student.find({UDiseNo : req.params.udise, ContactNo: req.params.password,isIdUploaded: req.params.isIdUploaded});
 
         if(s){
             res.status(200).json({
@@ -45,6 +45,9 @@ exports.getStudentByTeacher = async(req, res, next) => {
                 s,
                 message: "Found Students Under Teacher"
             })
+        }else{
+        res.status(404).json({message: error.message, status: false});
+
         }
     } catch (error) {
         res.status(404).json({message: error.message, status: false});
@@ -54,7 +57,22 @@ exports.getStudentByTeacher = async(req, res, next) => {
 
 exports.getStudentById = async(req, res, next) => {
     try {
-        const s = await Student.findOne({_id : req.params.id});
+        const s = await Student.findOne({_id : req.params.id}, "-__v -isIdUploaded -updatedAt -createdAt");
+
+        if(s){
+            res.status(200).json({
+                status: true,
+                s
+            })
+        }
+    } catch (error) {
+        res.status(404).json({message: error.message, status: false});
+    }   
+}
+
+exports.getStudentByInstituteId = async(req, res, next) => {
+    try {
+        const s = await Student.find({InstituteId : req.params.id}, "-createdAt -updatedAt -__v -_id -InstituteId");
 
         if(s){
             res.status(200).json({

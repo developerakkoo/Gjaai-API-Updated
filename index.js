@@ -24,7 +24,7 @@ const fontRoute = require("./Routes/fontRoute");
 const dataRoute = require("./Routes/dataRoute");
 const imageRoute = require("./Routes/ImageRoute");
 const fieldRoute = require("./Routes/fieldsRoute");
-
+const signRoute = require("./Routes/signRoute");
 const diskStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     console.log(req.body.Name);
@@ -36,10 +36,10 @@ const diskStorage = multer.diskStorage({
   },
 
   filename: (req, file, cb) => {
-    cb(null, Date.now() + file.originalname.replace(/\\/g, "/")+".jpeg");
+    cb(null, Date.now() + file.originalname.replace(/\\/g, "/") + ".jpeg");
   },
 });
-const upload = multer({ storage: diskStorage});
+const upload = multer({ storage: diskStorage });
 
 // const MONGODB_URI = "mongodb://localhost:27017/GJaai";
 const MONGODB_URI = "mongodb+srv://farmsell:farmsell@cluster0.mh36s.mongodb.net/GJaai?retryWrites=true&w=majority";
@@ -56,7 +56,7 @@ dotenv.config({
   path: "./config.env",
 });
 
-if(process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
@@ -78,7 +78,7 @@ if(process.env.NODE_ENV === "development") {
 
 app.use("/image", express.static(path.join(__dirname, "image")));
 
-app.use('/folders', express.static('image'), serveindex('image', {icons: true}));
+app.use('/folders', express.static('image'), serveindex('image', { icons: true }));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -99,6 +99,7 @@ app.use(fontRoute);
 app.use(dataRoute);
 app.use(imageRoute);
 app.use(fieldRoute);
+app.use(signRoute);
 
 
 // app.post('/remove-image-bg', upload.single('bgremover'), (req, res, next) =>{
@@ -135,18 +136,18 @@ app.post('/img', upload.single('file'), (req, res, next) => {
       message: 'Please provide a image'
     })
   }
-    const photo = req.file.path.replace(/\\/g, "/");
-    console.log(photo);
+  const photo = req.file.path.replace(/\\/g, "/");
+  console.log(photo);
 
-    res.status(200).json({
-      photo: req.protocol+"://"+ req.hostname +":"+"8081"+"/" + photo
-    })
+  res.status(200).json({
+    photo: req.protocol + "://" + req.hostname + ":" + "8081" + "/" + photo
+  })
 
 })
 
 //Get A Excel file And SAve to Database
 
-app.post('/excel/student',upload.single('file'), (req, res, next) => {
+app.post('/excel/student', upload.single('file'), (req, res, next) => {
   const host = req.hostname;
 
   if (!req.file) {
@@ -157,27 +158,27 @@ app.post('/excel/student',upload.single('file'), (req, res, next) => {
   }
   const result = excelToJson({
     sourceFile: req.file.path,
-    columnToKey :{
+    columnToKey: {
       '*': '{{columnHeader}}'
     }
-});
-  
- Student.create(result.Sheet1)
-  .then((success) => {
-    res.status(200).json({
-      // photo: req.hostname + ":8080/"+photo
-      status: true,
-      result: success
-    })
-  }).catch((error) => {
-    res.status(404).json({
-      message: error.message
-    })
-  })
-    //const photo = req.file.path.replace(/\\/g, "/");
-    console.log(result);
+  });
 
-   
+  Student.create(result.Sheet1)
+    .then((success) => {
+      res.status(200).json({
+        // photo: req.hostname + ":8080/"+photo
+        status: true,
+        result: success
+      })
+    }).catch((error) => {
+      res.status(404).json({
+        message: error.message
+      })
+    })
+  //const photo = req.file.path.replace(/\\/g, "/");
+  console.log(result);
+
+
 
 })
 
@@ -219,11 +220,10 @@ mongoose
     const server = app.listen(8081);
     const io = require("./socket").init(server);
 
-    io.on('connection', () =>{
-        console.log("User connected");
+    io.on('connection', () => {
+      console.log("User connected");
     })
   })
   .catch((err) => {
     console.log(err);
   });
-   
