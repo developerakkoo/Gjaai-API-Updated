@@ -1,6 +1,7 @@
 const express = require("express");
 const https = require("https");
 const fs = require("fs");
+const { exec } = require("child_process");
 const dotenv = require("dotenv");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
@@ -12,7 +13,7 @@ const excelToJson = require('convert-excel-to-json');
 const fsextra = require("fs-extra");
 const serveindex = require('serve-index');
 const Student = require("./Models/StudentModal");
-
+const jimp = require("jimp");
 
 
 //Routes
@@ -77,8 +78,10 @@ if (process.env.NODE_ENV === "development") {
 
 
 app.use("/image", express.static(path.join(__dirname, "image")));
+app.use("/bg", express.static(path.join(__dirname, "bg")));
 
 app.use('/folders', express.static('image'), serveindex('image', { icons: true }));
+app.use('/bg', express.static('bg'), serveindex('bg', { icons: true }));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -126,6 +129,38 @@ app.use(signRoute);
 
 //   }
 // })
+
+
+app.post('/bgremove' ,upload.single('image'), (req, res, next) =>{
+try{	
+  if(!req.file){
+    res.status(400).send("Please provide a file");
+  }
+
+
+
+let photo = req.file.path;
+
+let bgurl = 'bg/'+ req.file.filename;
+
+exec(`rembg i ${photo} ${bgurl}`,(err, stdout, stderr) =>
+{
+if(err){
+	console.log(err);
+  res.status(400).send(err);
+}
+res.status(200).json({stdout: stdout, stderr: stderr, file: "http://localhost:8081/"+bgurl});
+console.log(stdout);
+})
+
+
+console.log(`image:- ${photo}`);
+}catch(error){
+res.status(500).send(error.message);
+}
+
+});
+
 
 app.post('/img', upload.single('file'), (req, res, next) => {
   const host = req.hostname;
