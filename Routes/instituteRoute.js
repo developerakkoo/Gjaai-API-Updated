@@ -27,6 +27,11 @@ Router.get(
   "/get/institute/:udise/:mobile",
   institute.getInstituteByUdiseAndMobile
 );
+
+Router.post(
+  "/teacher/login",
+  institute.getTeacherByUdiseAndMobile
+);
 Router.get("/institute", institute.getInstitute);
 Router.get("/institute/:id", institute.getInstituteById);
 

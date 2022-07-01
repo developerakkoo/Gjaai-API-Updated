@@ -14,9 +14,26 @@ const signSchema = new Schema({
 
     imageUrl:{
         type: String
-    }
+    },
 
-    
+    height:{
+        type: String
+    },
+
+    width:{
+        type: String
+    },
+
+    top:{
+        type: String
+    },
+
+    left: {
+        type: String
+    },
+    index:{
+        type: String
+    }
 
 }, {timestamps: true, strict: false});
 

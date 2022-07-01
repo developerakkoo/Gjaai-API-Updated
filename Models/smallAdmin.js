@@ -12,10 +12,17 @@ const smallAdmin = new Schema({
         type: String
     },
 
-    institutes:{
+    institutes:[{
         type: Schema.Types.ObjectId,
         ref: "Institute"
-    }
+    }],
+
+    isEdit: {
+        type: Boolean,
+        default: false
+    },
+
+    isReadOnly: {type: Boolean, default: true}
 
 
 }, {timestamps: true})

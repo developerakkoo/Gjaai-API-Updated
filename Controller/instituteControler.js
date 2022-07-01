@@ -53,7 +53,7 @@ exports.postInstitute = async (req, res, next) => {
 
     let pics = [];
     const photo = req.files.map((file) =>{
-            return req.protocol+ '://'+ req.hostname + ":" + "8081" + "/" +  file.path
+            return req.protocol+ '://'+ "192.168.3.108" + ":" + "8081" + "/" +  file.path
         
     });
     // console.log(photo);
@@ -124,6 +124,27 @@ exports.getInstituteByUdiseAndMobile = async(req, res, next) => {
     
 
         const institute = await Institute.find({ UDiseNo:req.params.udise, ContactNo: req.params.mobile});
+
+        if(institute){
+            res.status(200).json({
+                status: true,
+                message: "Found by udise and mobile no",
+                ins: institute,
+                length: institute.length
+            })
+        }
+    } catch (error) {
+        res.status(404).json({ error: error, message: error.message});       
+        
+    }
+}
+
+exports.getTeacherByUdiseAndMobile = async(req, res, next) => {
+    console.log("TEACHER UDISE AND MOBILE");
+    try {
+    
+
+        const institute = await Institute.find({ UDiseNo:req.body.udise, MobileNo: req.body.mobile});
 
         if(institute){
             res.status(200).json({

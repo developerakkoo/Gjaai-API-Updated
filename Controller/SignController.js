@@ -5,12 +5,35 @@ exports.createSign = async(req, res, next) =>{
     try {
         const sign = await Sign.create(req.body);
         if(sign){
-            res.status(200).json({
+            res.status(200)
+            .json({
                 status: true,
                 message: "Sign For Institute Created",
                 sign
             })
         }
+    } catch (error) {
+        res.status(500)
+        .json({
+            error
+        })
+    }
+}
+
+exports.updateSignByInstitute = async(req, res, next) =>{
+    try {
+        const sign = await Sign.findOneAndUpdate({
+            institute: req.params.id
+        }, { imageUrl: req.body.url })
+
+        if(sign){
+            res.status(200).json({
+                status: true,
+                message: "Sign For Institute Updated",
+                sign
+            })
+        }
+        
     } catch (error) {
         res.status(500)
         .json({

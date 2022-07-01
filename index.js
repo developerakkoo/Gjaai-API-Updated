@@ -175,7 +175,7 @@ app.post('/img', upload.single('file'), (req, res, next) => {
   console.log(photo);
 
   res.status(200).json({
-    photo: req.protocol + "://" + req.hostname + ":" + "8081" + "/" + photo
+    photo: req.protocol + "://" + "192.168.3.108" + ":" + "8081" + "/" + photo
   })
 
 })

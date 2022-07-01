@@ -98,7 +98,7 @@ exports.updateStudentPhoto = async(req, res, next) => {
 
         //   console.log(pos);
 
-          let photo = req.protocol + '://'+ req.hostname + ":" + "8081" + "/" +  req.file.path
+          let photo = req.protocol + '://'+ "192.168.3.108" + ":" + "8081" + "/" +  req.file.path
 
         const s = await Student.findOneAndUpdate({_id : req.params.id}, {
             StudentPhoto: photo
