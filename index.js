@@ -49,8 +49,11 @@ const MONGODB_URI = "mongodb+srv://farmsell:farmsell@cluster0.mh36s.mongodb.net/
 const app = express();
 const port = 8080;
 
-app.use(express.json());
+app.set('view engine', 'ejs');
+app.set('views', 'views');
 
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 dotenv.config({
@@ -130,6 +133,9 @@ app.use(signRoute);
 //   }
 // })
 
+app.get('/', (req, res) => {
+  res.render('home');
+})
 
 app.post('/bgremove' ,upload.single('image'), (req, res, next) =>{
 try{	
