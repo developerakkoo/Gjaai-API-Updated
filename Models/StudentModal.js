@@ -7,6 +7,13 @@ const StudentSchema = new Schema({
     UDiseNo:{
         type: String
     },
+    userId:{
+        type: String
+    },
+
+    password:{
+        type: String
+    },
     ContactNo:{
         type: String
     },

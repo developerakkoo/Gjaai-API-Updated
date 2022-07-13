@@ -11,5 +11,6 @@ Router.get('/input/:id', input.getInstituteById);
 Router.get('/get/input/:id', input.getInputByInstituteId);
 
 Router.put('/input/:id', input.updateInstitute);
+Router.delete('/inputs/:id', input.deleteInput);
 
 module.exports = Router;

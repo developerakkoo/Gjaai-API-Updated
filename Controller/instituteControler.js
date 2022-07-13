@@ -64,6 +64,8 @@ exports.postInstitute = async (req, res, next) => {
       
             const institute = await new Institute({
                 Name:Name,
+                userId: req.body.userId,
+                password: req.body.password,
                 email: email,
                 Address:Address,
                 UDiseNo:UDiseNo,
@@ -121,9 +123,9 @@ exports.getInstitute = async(req, res, next) => {
 exports.getInstituteByUdiseAndMobile = async(req, res, next) => {
     console.log("UDISE AND MOBILE");
     try {
-    
+        console.log(`userId:- ${req.params.udise} password:- ${req.params.mobile}`);
 
-        const institute = await Institute.find({ UDiseNo:req.params.udise, ContactNo: req.params.mobile});
+        const institute = await Institute.findOne({ userId:req.params.udise, password: req.params.mobile});
 
         if(institute){
             res.status(200).json({

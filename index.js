@@ -155,7 +155,7 @@ if(err){
 	console.log(err);
   res.status(400).send(err);
 }
-res.status(200).json({stdout: stdout, stderr: stderr, file: "http://localhost:8081/"+bgurl});
+res.status(200).json({stdout: stdout, stderr: stderr, file: "http://192.168.3.108:8081/"+bgurl});
 console.log(stdout);
 })
 

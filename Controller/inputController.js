@@ -110,6 +110,15 @@ exports.updateInstitute = async(req, res, next) => {
 exports.deleteInput = async(req, res, next) => {
     try {
         const id = req.params.id;
+        let input = await Input.deleteMany({institute: id})
+        if(input){
+            res.status(200).json({ 
+                input,
+                message: "Deleted all Inputs"
+            })
+            
+        }
+        
         
     } catch (error) {
         res.status(404).json({ error: error, message: error.message});        

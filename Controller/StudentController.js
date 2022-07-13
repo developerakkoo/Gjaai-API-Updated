@@ -35,9 +35,9 @@ exports.getAllStudent = async(req, res, next) => {
 exports.getStudentByTeacher = async(req, res, next) => {
     try {
        
+        console.log(`userId:- ${req.params.udise} password:- ${req.params.password} isId: ${req.params.isIdUploaded}`);
 
-
-        const s = await Student.find({UDiseNo : req.params.udise, ContactNo: req.params.password,isIdUploaded: req.params.isIdUploaded});
+        const s = await Student.find({userId : parseInt(req.params.udise), password: parseInt(req.params.password),isIdUploaded: req.params.isIdUploaded});
 
         if(s){
             res.status(200).json({

@@ -61,7 +61,7 @@ exports.getImageById = async(req, res, next) =>{
 
 exports.deleteImageByInstitute = async(req, res, next) =>{
     try {
-        const image = await Image.findByIdAndDelete({instituteId: req.params.id});
+        const image = await Image.deleteMany({institute: req.params.id});
 
         if(image){
                    res.status(200).json({

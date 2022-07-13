@@ -8,6 +8,12 @@ const instituteSchema = new Schema({
         type: String
     },
 
+    userId:{
+        type: String
+    },
+    password:{
+        type: String
+    },
     UDiseNo:{
         type: String
     },
