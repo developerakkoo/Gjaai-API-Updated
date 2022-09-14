@@ -26,6 +26,8 @@ const dataRoute = require("./Routes/dataRoute");
 const imageRoute = require("./Routes/ImageRoute");
 const fieldRoute = require("./Routes/fieldsRoute");
 const signRoute = require("./Routes/signRoute");
+const downloadRoute = require("./Routes/downloadRoute");
+
 const diskStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     console.log(req.body.Name);
@@ -98,6 +100,7 @@ app.use((req, res, next) => {
 
 
 app.use(userRoute);
+app.use(downloadRoute);
 app.use(studentRoute);
 app.use(instituteRoute);
 app.use(inputRoute);
